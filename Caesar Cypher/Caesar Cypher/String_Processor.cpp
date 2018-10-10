@@ -17,7 +17,7 @@ void String_processor::string_convert(string & u_input)
 
 }
 
-void String_processor::wsp_remover(string& u_input)
+void String_processor::wsp_remover(string& u_input)const
 {
 	char whitespace (' ');
 	size_t found = u_input.find(whitespace);
@@ -32,4 +32,9 @@ void String_processor::wsp_remover(string& u_input)
 char String_processor::get_char_array(int index) const
 {
 	return brokenstring[index];
+}
+
+void String_processor::set_char_array(int i)
+{
+	brokenstring[i];
 }
