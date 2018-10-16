@@ -7,34 +7,63 @@
 
 using namespace std;
 
-void String_processor::string_convert(string & u_input)
-{
-	for(int i = 0; i < u_input.length(); i++)
-	{
-	
-		brokenstring[i] = u_input[i];
-	}
 
-}
 
-void String_processor::wsp_remover(string& u_input)const
+void String_processor::input_setup()
 {
-	char whitespace (' ');
-	size_t found = u_input.find(whitespace);
+
+	getline(cin, input);
+
+
+	//removing whitespaces
+	char whtspc(' ');
+
+	size_t found = input.find(whtspc);
 
 	if (found != string::npos)
 	{
-		u_input.erase(std::remove_if(u_input.begin(), u_input.end(), ::isspace), u_input.end());
+		input.erase(std::remove_if(input.begin(), input.end(), ::isspace), input.end());
+	}
+
+	//pasing the rest into an array
+	for (int i = 0; i < (int)input.length(); i++)
+	{
+		brokenstring[i] = input[i];
 	}
 
 }
 
-char String_processor::get_char_array(int index) const
+void String_processor::string_convert(string & input)
 {
-	return brokenstring[index];
+	for(int i = 0; i < (int)input.length(); i++)
+	{
+		brokenstring[i] = input[i];
+	}
+}
+
+void String_processor::wsp_remover(string& input)const
+{
+	char whitespace (' ');
+	size_t found = input.find(whitespace);
+
+	if (found != string::npos)
+	{
+		input.erase(std::remove_if(input.begin(), input.end(), ::isspace), input.end());
+	}
+
+}
+
+char String_processor::get_char_array(int i) const
+{
+	return brokenstring[i];
 }
 
 void String_processor::set_char_array(int i)
 {
 	brokenstring[i];
+}
+
+std::string String_processor::get_input() const
+{
+	return input;
 }
