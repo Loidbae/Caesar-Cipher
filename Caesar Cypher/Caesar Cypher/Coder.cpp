@@ -5,23 +5,32 @@
 
 using namespace std;
 
-int Coder::get_abc() const
+int Coder::get_abc(int i) const
 {
-	return abc_offset;
+	return abc_offset[i];
 }
 
-void Coder::set_abc(int abcproxy)
+void Coder::set_abc(int abcproxy, int i)
 {
-	abc_offset = abcproxy;
+	abc_offset[i] = abcproxy;
 }
 
-int Coder::get_ascii(string& u_input)
+void Coder::translate_to_ascii()
 {
-	for (int i = 0; i < (int)u_input.length(); i++)
+
+	//what I do here is reading the content of the "brokenstring" array from String_processor.h
+	//into the int array so that every character gets translatet to a decimal number
+	for (int i = 0; i < (int)borrow.get_input().length(); i++)
 	{
-		return ascii_per_char[i] = borrow.get_char_array(i);
+		ascii_per_char[i] = borrow.get_char_array(i);
 	}
-	
+	/*then I take those decimal values and add them with the offsets on the exact same
+	array position as the abc offset array so that every character gets replaced by the
+	number they where assignt to*/
+	for (int i = 0; i < (int)borrow.get_input().length(); i++)
+	{
+		ascii_per_char[i] = ascii_per_char[i] + abc_offset[i];
+	}
 }
 
 

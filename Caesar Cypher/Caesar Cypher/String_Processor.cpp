@@ -11,7 +11,8 @@ using namespace std;
 
 void String_processor::input_setup()
 {
-
+	//In this method I get the users input ask if any whitespaces are present and remove them if so
+	//then I save the rest (the characters without whitespaces) to an array so that I can edit them later
 	getline(cin, input);
 
 
