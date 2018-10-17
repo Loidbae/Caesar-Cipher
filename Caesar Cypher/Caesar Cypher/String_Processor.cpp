@@ -9,10 +9,10 @@ using namespace std;
 
 
 
-char string_processor::input_setup(string input,int index)
+char string_processor::input_processor(string input,int index)
 {
-	//In this method I get the users input ask if any whitespaces are present and remove them if so
-	//then I save the rest (the characters without whitespaces) to an array so that I can edit them later
+	/*This method processes the users input, by removing all whitespaces from the string
+	and saving the rest to an seperate array*/
 
 
 	//removing whitespaces

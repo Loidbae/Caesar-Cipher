@@ -8,7 +8,7 @@ class string_processor
 {
 public:
 	
-	char input_setup(std::string input, int index);
+	char input_processor(std::string input, int index);
 	char get_char_array(int i) const;
 	void set_char_array(int i, char setme);
 

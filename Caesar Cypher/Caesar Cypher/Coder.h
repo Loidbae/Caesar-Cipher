@@ -12,7 +12,8 @@ public:
 	int get_abc(int i)const;
 	void set_abc(int abcproxy, int i);
 	char return_encode(int i)const;
-	void translate_to_ascii(std::string input, string_processor borrow);
+	void encode(std::string input, string_processor borrow);
+
 	//Caesars_Decoder
 
 
