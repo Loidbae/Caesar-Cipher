@@ -1,5 +1,15 @@
 #pragma once
 
+/*Guidelines for this project (not sure if those are good ones need feedback on that)
+
+	- If possible find rememberable and short names for your functions;
+	- Don't spam your main() with output loops;
+	- Always try to keep main() clean;
+	- Documentation should be simply worded in short sentences, if possible;
+
+*/
+// Code written by Loidbae, Github:https://github.com/Loidbae
+
 #include <iostream>
 #include <string>
 #include "string.h"

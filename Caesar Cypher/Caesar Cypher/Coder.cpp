@@ -17,7 +17,7 @@ void Coder::set_abc(int abcproxy, int i)
 	abc_offset[i] = abcproxy;
 }
 
-char Coder::encoder159(string input, string_processor borrow, int index)
+void Coder::encoder159(string input, string_processor borrow)
 {
 	/*this function converts every character into their decimal counterpart and "corrects" them
 	into the ascii range after that it gets converted to char and output as text*/
@@ -48,13 +48,16 @@ char Coder::encoder159(string input, string_processor borrow, int index)
 		ascii_per_char[i] = ascii_new;
 	} 
 	
-		return ascii_per_char[index];
+	for (int i = 0; i < (int)input.length(); i++)
+	{
+		cout << (char)ascii_per_char[i];
+	}
 }
 
 void Coder::keygen159()
 {
 	/*The Idea behind this function is to take the offset values and translate them into ascii by
-	correcting their values into the ascii range, so that I can return them as a character to finally
+	correcting their values into the ascii range, so that I can return them as a characters to finally
 	generate the "key" this key will then be read by the decoder who will then know by the format of 
 	the key how to decrypt the encrypted message*/
 
@@ -91,7 +94,7 @@ void Coder::keygen159()
 	}
 	for (int i = 0; i < sizeof(abc_offset[dex]); i++)
 	{
-		cout << abc_offset[i];
+		cout << save_original[i];
 
 		if (i / 3)
 		{
