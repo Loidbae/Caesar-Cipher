@@ -23,7 +23,7 @@ public:
 	{
 		use.ruler1 = 0;
 	}
-	//see String_Processor.cpp for dokumentation;
+	//see String_Processor.cpp for documentation;
 	void input_processor(std::string input);
 
 
@@ -42,4 +42,5 @@ private:
 	//arrays
 	static constexpr int dex = 41;
 	char brokenstring[dex];
+	int remember32[dex]; //32 is the associated decimal number of ' ' in the ascii table;
 };
