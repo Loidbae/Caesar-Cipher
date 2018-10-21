@@ -1,9 +1,7 @@
 #include "pch.h"
 #include "Coder.h"
 #include <string>
-#include "string.h"
 #include <iostream>
-#include <math.h>
 
 using namespace std;
 
@@ -15,21 +13,23 @@ int Coder::get_abc(int i) const
 void Coder::set_abc(int abcproxy, int i)
 {
 	abc_offset[i] = abcproxy;
+	use.ruler1++;
 }
 
-void Coder::encoder159(string input, string_processor borrow)
+void Coder::encoder159(string& input, string_processor& borrow)
 {
 	/*this function converts every character into their decimal counterpart and "corrects" them
 	into the ascii range after that it gets converted to char and output as text*/
 
 	int ascii_new;
 
-	for (int i = 0; i < (int)input.length(); i++)
+	for (int i = 0; i < borrow.get_stringL(); i++)
 	{
-		ascii_per_char[i] = borrow.input_processor(input, i);
+		ascii_per_char[i] = borrow.get_char_array(i);
+		use.ruler2++;
 	}
 
-	for (int i = 0; i < (int)input.length(); i++)
+	for (int i = 0; i < borrow.get_stringL(); i++)
 	{
 		ascii_new = ascii_per_char[i] + abc_offset[i];
 
@@ -48,11 +48,13 @@ void Coder::encoder159(string input, string_processor borrow)
 		ascii_per_char[i] = ascii_new;
 	} 
 	
-	for (int i = 0; i < (int)input.length(); i++)
+	for (int i = 0; i < borrow.get_stringL(); i++)
 	{
 		cout << (char)ascii_per_char[i];
 	}
-}
+	cout << endl;
+	cout << endl;
+}	
 
 void Coder::keygen159()
 {
@@ -63,12 +65,13 @@ void Coder::keygen159()
 
 	int save_original[dex];
 	int temp_offset;
-	
-	int temp_c126 = 0;
-	int temp_c33 = 0;
 
-	for (int i = 0; i < sizeof(abc_offset[dex]); i++)
+	for (int i = 0; i < use.ruler1; i++)
 	{
+
+		int temp_c126 = 0;
+		int temp_c33 = 0;
+
 		save_original[i] = abc_offset[i]; //to save the original offsets for later.
 
 		temp_offset = abc_offset[i];
@@ -80,7 +83,6 @@ void Coder::keygen159()
 			{
 				temp_offset = temp_offset - 126;
 				temp_c126 = temp_c126 +1;
-
 			}//plus 33 and increase counter.
 			else if (temp_offset < 33)
 			{
@@ -88,26 +90,30 @@ void Coder::keygen159()
 				temp_c33 ++;
 			}
 		}
+		//take value and increase counter, take value and increase counter....
 		onetwenty_c[i] = temp_c126;
+		use.ruler3++;
 		thirty_c[i] = temp_c33;
+		use.ruler4++;
 		abc_offset[i] = temp_offset;
 	}
-	for (int i = 0; i < sizeof(abc_offset[dex]); i++)
+
+	// ooo-sss-ttt o-how many times 126 got subtracted s- saved originial offsets t- how many times 33 got added;
+	for (int i = 0; i < use.ruler3; i++)
+	{
+		cout << onetwenty_c[i];
+	}
+	for (int i = 0; i < use.ruler1; i++)
 	{
 		cout << save_original[i];
-
-		if (i / 3)
-		{
-			cout << onetwenty_c[i];
-		}
-		else if (i / 5)
-		{
-			cout << thirty_c[i];
-		}
+	}
+	for (int i = 0; i < use.ruler4; i++)
+	{
+		cout << thirty_c[i];
 	}
 }
 
-void Coder::decoder159(std::string input, string_processor borrow)
+void Coder::decoder159(std::string& input, string_processor& borrow)
 {
 	for (int i = 0; i < (int)input.length(); i++)
 	{
