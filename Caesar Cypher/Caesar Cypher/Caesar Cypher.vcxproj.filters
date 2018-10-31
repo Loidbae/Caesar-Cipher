@@ -18,16 +18,10 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="String_Processor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Coder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ArrayRuler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Input Handler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CounterStruct.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -35,16 +29,10 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Caesar Cypher.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="String_Processor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Coder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Input Handler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Caesar Cipher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

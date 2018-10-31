@@ -33,15 +33,15 @@ public:
 	//I-Z
 	inputhandler()
 	{
-		int rE126 = 0;
-		int rE33 = 0;
-		int r126 = 0;
-		int r33 = 0;
-		int rOffset = 0;
-		int rindex = 0;
+		 use.rE126 = 0;
+		 use.rE33 = 0;
+		 use.r126 = 0;
+		 use.r33 = 0;
+		 use.rOffset = 0;
+		 use.rindex = 0;
 	}
 
-	// FULL DOCUMENTATION OF EVERYTHING IS IN THE CPP FILE
+	// FULL DOCUMENTATION OF EVERYTHING IS IN THE CPP FILES
 
 	//S-F-Z
 	// 159 is the sum of 126 and 33, my cypher range.
@@ -82,7 +82,7 @@ private:
 
 };
 /*
-	Rought concept of my cypher:
+	Rough concept of my cipher:
 		
 		- user inputs text
 		- text gets broken up into chars and passed on to the char array

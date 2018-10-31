@@ -8,31 +8,29 @@ using namespace std;
 
 void inputhandler::prepare_brokeninput(std::string & userinput) 
 { 
-	/*this is a special setter it searches whitespaces reports them and
-	removes them*/
+	/*searches whitespaces, remembers the position of them and overwrites them*/
 
-	/*first we want two indipendent counters for remember32 and brokeninput
-	this is so that brokeninput can overwrite the whitespace the next interation
-	and the second one is for remember32 so that it begins at 0*/
+	/*2 counters, one for brokeninput to overwrite whitespaces, second for remember32
+	so that it starts at 0*/
 
 	int i_r = 0;
 
 	for (int i = 0; i < (int)userinput.length(); i++)
 	{
-		// ruler as index for overwriting whitespaces*
+		// in this case our index is a ruler
 		brokeninput[use.rindex] = userinput[i];
 
 		if (brokeninput[use.rindex] == 32)
 		{
 			remember32[i_r] = i;
 			i_r++;
-			use.rindex--; //*
+			use.rindex--; // <--
 		}
 
 		use.rindex++;
 	}
-
-	inputsL = use.rindex; // end value is the new size of brokeninput after removing whitespaces 
+	// end value is the new size of brokeninput after removing whitespaces
+	inputsL = use.rindex;  
 }
 
 void inputhandler::encrypter159()
@@ -71,18 +69,35 @@ void inputhandler::encrypter159()
 void inputhandler::keygen159()
 {
 	int fair_c = 0;
+	int c126 = 0;
+	int c33 = 0;
+	int offsetc = 0;
 	bool fairplay = false;
+	bool done126 = false;
+	bool done33 = false;
+	bool doneOffset = false;
 
 	for (int i = 0; i < dex; i++)
 	{
-		
-		if (i % 2 == 0 || i == 0 && i != use.r126)
+		bool even = false;
+		bool three = false;
+		bool fairactive = false;
+
+		if (i % 2 == 0 && c126 < use.r126 && done126 == false || i == 0 || done33 == true || doneOffset == true)
 		{
-			keyholder159[i] = onetwenty_c[i];
-			
-			if (i % 2 == 0 && i % 3 == 0)
+			keyholder159[i] = onetwenty_c[c126];
+			c126++;
+			even = true;
+
+			if (c126 == use.r126)
+			{
+				done126 = true;
+			}
+
+			if (i % 2 == 0 && i % 3 == 0 || i == 0)
 			{
 				fair_c++;
+				fairactive = true;
 			}
 
 			if (fair_c == 4)
@@ -90,21 +105,37 @@ void inputhandler::keygen159()
 				fairplay = true;
 			}
 		}
-		if (i % 3 == 0 && i != use.r33)
+		if (i % 3 == 0 && i != 0 && c33 < use.r33 && done33 == false || done126 == true || doneOffset == true )
 		{
-			if (fairplay == true)
+			if (fairactive == false)
 			{
-				keyholder159[i] = thirty_c[i];
+				keyholder159[i] = thirty_c[c33];
+				c33++;
+				three = true;
+
+				if (fairplay == true)
+				{
+					i++;
+					keyholder159[i] = thirty_c[c33];
+					c33++;
+				}
+				if (c33 == use.r33)
+				{
+					done33 = true;
+				}
 			}
+			
 		}
-		if (i != 0 && i != use.rOffset)
+		if (three == false && even == false && i != 0 && doneOffset == false || done126 == true || done33 == true )
 		{
-			if (i % i == 0 && i != i % 2 == 0 && i != i % 3 == 0 && i != 0)
-			{
-				keyholder159[i] = offsets[i];
-			}
+				keyholder159[i] = offsets[offsetc];
+				offsetc++;
+
+				if (offsetc == use.rOffset)
+				{
+					doneOffset = true;
+				}
 		}
-		
 	}
 }
 
