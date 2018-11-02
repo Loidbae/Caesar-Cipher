@@ -62,6 +62,8 @@ public:
 	int get_key(int i)const;
 	int get_offsets()const;
 
+	// B-A-Z public
+	int keysize;
 
 private:
 	// C-M-Z

@@ -48,12 +48,12 @@ void inputhandler::encrypter159()
 		{
 			if (temp_broken > 126)
 			{
-				temp_broken =- 126;
+				temp_broken -= 126;
 				use.rE126++;
 			}
 			else if (temp_broken < 33)
 			{
-				temp_broken =+ 33;
+				temp_broken += 33;
 				use.rE33++;
 			}
 		}
@@ -68,75 +68,92 @@ void inputhandler::encrypter159()
 
 void inputhandler::keygen159()
 {
-	int fair_c = 0;
 	int c126 = 0;
 	int c33 = 0;
 	int offsetc = 0;
-	bool fairplay = false;
+
+	int fair_c = 0;
+	bool fair = true;
+
 	bool done126 = false;
 	bool done33 = false;
 	bool doneOffset = false;
 
 	for (int i = 0; i < dex; i++)
 	{
-		bool even = false;
-		bool three = false;
+		bool waseven = false;
+		bool wasthree = false;
 		bool fairactive = false;
 
-		if (i % 2 == 0 && c126 < use.r126 && done126 == false || i == 0 || done33 == true || doneOffset == true)
+		if (i % 2 == 0 && done126 == false || done126 == false && i == 0)
 		{
-			keyholder159[i] = onetwenty_c[c126];
-			c126++;
-			even = true;
+			if (i % 2 == 0 && i % 3 == 0|| i == 0)
+			{
+				if (fair_c < 4)
+				{
+					keyholder159[i] = onetwenty_c[c126];
+					c126++;
+					waseven = true;
+					fairactive = true;
+					fair_c++;
+				}
+				else
+				{
+					fair = false;
+				}
+			}
+			else if (fair)
+			{
+				keyholder159[i] = onetwenty_c[c126];
+				c126++;
+				waseven = true;
+			}
 
-			if (c126 == use.r126)
+			if (c126 >= use.r126)
 			{
 				done126 = true;
-			}
-
-			if (i % 2 == 0 && i % 3 == 0 || i == 0)
-			{
-				fair_c++;
-				fairactive = true;
-			}
-
-			if (fair_c == 4)
-			{
-				fairplay = true;
+				i++;
+				waseven = false;
 			}
 		}
-		if (i % 3 == 0 && i != 0 && c33 < use.r33 && done33 == false || done126 == true || doneOffset == true )
+		if (i % 3 == 0 && i != 0 && done33 == false || done126 == true && done33 == false && i % 2 == 0 && i != 0 || doneOffset == true && done33 == false && i != 0)
 		{
 			if (fairactive == false)
 			{
 				keyholder159[i] = thirty_c[c33];
 				c33++;
-				three = true;
+				wasthree = true;
 
-				if (fairplay == true)
+				if (fair == false)
 				{
-					i++;
-					keyholder159[i] = thirty_c[c33];
-					c33++;
+					fair = true;
 				}
-				if (c33 == use.r33)
+
+				if (c33 >= use.r33)
 				{
 					done33 = true;
+					i++;
+					wasthree = false;
 				}
 			}
 			
 		}
-		if (three == false && even == false && i != 0 && doneOffset == false || done126 == true || done33 == true )
+		if (waseven == false && wasthree == false && i != 0 || done33 == true && doneOffset == false && i != 0)
 		{
 				keyholder159[i] = offsets[offsetc];
 				offsetc++;
 
-				if (offsetc == use.rOffset)
+				if (offsetc >= use.rOffset)
 				{
 					doneOffset = true;
 				}
 		}
+		if (done126 == true && done33 == true && doneOffset == true)
+		{
+			i = dex;
+		}
 	}
+	keysize = use.arraymax(use.r126, use.r33, use.rOffset) -1;
 }
 
 void inputhandler::set_offsets(int offsetproxy, int i)
