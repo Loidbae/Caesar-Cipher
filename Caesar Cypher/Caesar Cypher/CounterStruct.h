@@ -21,6 +21,24 @@ struct counterstruct
 		int arrayR = a + b + c;
 		return arrayR;
 	}
+	int arraymax(int a, int b, int c, int d)
+	{
+		int arrayR = a + b + c + d;
+		return arrayR;
+	}
+
+	void clear()
+	{
+		rE126 = 0;
+		rE33 = 0;
+		
+		r126 = 0;
+		r33 = 0;
+		
+		rKey = 0;
+		rOffset = 0;
+		rindex = 0;
+	}
 
 	int rE126;
 	int rE33;
@@ -28,6 +46,7 @@ struct counterstruct
 	int r126;
 	int r33;
 
+	int rKey;
 	int rOffset;
 	int rindex;
 };

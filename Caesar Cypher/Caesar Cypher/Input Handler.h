@@ -8,18 +8,6 @@
 
 */// Code written by Loidbae, Github:https://github.com/Loidbae
 
-/* Loidbae brain Legend
-
-	- I-Z = Initializion Zone
-	- S-F-Z = Standard Function Zone
-	- G-S-Z = Getter Setter Zone
-
-	- C-M-Z = Class Member Zone
-	- B-A-Z = Basic Assignment Zone
-	- A-A-Z = Array Assigment Zone
-
-*/
-
 #pragma once
 
 #include <iostream>
@@ -30,51 +18,46 @@ class inputhandler
 {
 public:
 
-	//I-Z
 	inputhandler()
 	{
 		 use.rE126 = 0;
 		 use.rE33 = 0;
 		 use.r126 = 0;
 		 use.r33 = 0;
+		 use.rKey = 0;
 		 use.rOffset = 0;
 		 use.rindex = 0;
 	}
 
-	// FULL DOCUMENTATION OF EVERYTHING IS IN THE CPP FILES
+	void clearArrays();
 
-	//S-F-Z
-	// 159 is the sum of 126 and 33, my cypher range.
-
-	void prepare_brokeninput(std::string& userinput);
+	void prepare_brokeninput(std::string& userinput, std::string& keyinput, bool decrypting);
 	void encrypter159();
 	void keygen159();
 	void decryption159();
 
-
-	// G-S-Z
-
 	void set_offsets(int offsetproxy,int i);
-
+	void set_keyholder(int keyinput,int i);
+	void set_brokeninput(std::string& txtinput,int i);
+	void set_newkey(int keyproxy,int i);
 
 	int get_inputsL()const;
 	char get_brokeninput(int i)const;
 	int get_key(int i)const;
-	int get_offsets()const;
 
-	// B-A-Z public
 	int keysize;
 
 private:
-	// C-M-Z
 	counterstruct use;
-	std::string input;
 
-	// B-A-Z
-	static constexpr int dex = 49;
+	int rem_i = 0;
 	int inputsL;
 
-	//A-A-Z
+	static constexpr int dex = 299;
+
+	char newkey[dex];
+	int keyholder_de[dex];
+
 	char brokeninput[dex];
 	int remember32[dex]; // 32 -> ascii decimal for whitespace
 	int offsets[dex];
