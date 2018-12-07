@@ -6,10 +6,8 @@
 
 using namespace std;
 
-void inputhandler::dispose_leftovers()
+void inputhandler::clearArrays()
 {
-	input_size = 0;
-
 	for (int i = 0; i < dex; i++)
 	{
 		remember32[i] = -858993460;
@@ -17,10 +15,16 @@ void inputhandler::dispose_leftovers()
 		onetwenty_c[i] = -858993460;
 		thirty_c[i] = -858993460;
 		keyholder159[i] = -858993460;
-	}	
+	}
+	for (int i = 0; i < dex; i++)
+	{
+		brokeninput[i];
+
+	}
+	
 }
 
-void inputhandler::prepare_encryption(std::string & userinput)
+void inputhandler::prepare_brokeninput(std::string & userinput,std::string& keyinput, bool decrypting)
 { 
 	/*searches whitespaces, remembers the position of them and overwrites them*/
 
@@ -36,54 +40,21 @@ void inputhandler::prepare_encryption(std::string & userinput)
 		{
 			remember32[rem_i] = i;
 			rem_i++;
-			use.rindex--;
+			use.rindex--; // <--
 		}
 
 		use.rindex++;
-		
 	}
 
 	// end value is the new size of brokeninput after removing whitespaces
-	input_size = use.rindex;
-}
-
-void inputhandler::prepare_decryption()
-{
-	int keyL, l126, l33, offL, rem32L;
-
-	keyL = keyholder_de[0];
-	l126 = keyholder_de[1];
-	offL = keyholder_de[2];
-	l33 = keyholder_de[3];
-	rem32L = keyholder_de[4];
-
-	int i = 5;
-	for (int ia = 0; ia < l126; i++, ia++)
-	{
-		onetwenty_c[ia] = keyholder_de[i];	
-	}
-	for (int ia = 0; ia < l126; i++, ia++)
-	{
-		offsets[ia] = keyholder_de[i];
-	}
-	for (int ia = 0; ia < l126; i++, ia++)
-	{
-		thirty_c[ia] = keyholder_de[i];
-	}
-	for (int ia = 0; ia < rem32L; i++, ia++)
-	{
-		remember32[ia] = keyholder_de[i];
-	}
+	inputsL = use.rindex;
 }
 
 void inputhandler::encrypter159()
 {
-	/*By adding the offset value to the decimal number of the ascii tables character and subtracting or adding certain numbers,
-	until its in the range of readable characters we automaticly 'encrypt' the text.*/
-
 	int temp_broken;
 
-	for (int i = 0; i < input_size; i++)
+	for (int i = 0; i < inputsL; i++)
 	{
 		temp_broken = (int)brokeninput[i] + offsets[i];
 
@@ -116,15 +87,15 @@ void inputhandler::encrypter159()
 
 void inputhandler::keygen159()
 {
-	/*Okay, so I took the 5 variables that will allways only occupy one array space at a time
+	/*Okay so I took the 5 variables that will allways only occupy one array space at a time
 	and put them in front of everything else because that way my decrypter will instantly know
-	what and where to pass.*/
+	what, where to pass.*/
 
 	int contindex = 0;
 
-	key_size = use.arraymax(use.r126, use.r33, use.rOffset, rem_i) + 5;
+	keysize = use.arraymax(use.r126, use.r33, use.rOffset, rem_i);
 
-	keyholder159[contindex] = key_size;
+	keyholder159[contindex] = keysize;
 	contindex++;
 	keyholder159[contindex] = use.r126;
 	contindex++;
@@ -135,7 +106,11 @@ void inputhandler::keygen159()
 	keyholder159[contindex] = rem_i;
 	contindex++;
 
-	
+	for (int i = 0; i < rem_i; i++)
+	{
+		keyholder159[contindex] = remember32[i];
+		contindex++;
+	}
 	for(int i = 0; i < use.r126; i++)
 	{
 		keyholder159[contindex] = onetwenty_c[i];
@@ -151,81 +126,74 @@ void inputhandler::keygen159()
 		keyholder159[contindex] = thirty_c[i];
 		contindex++;
 	}
-	for (int i = 0; i < rem_i; i++)
-	{
-		keyholder159[contindex] = remember32[i];
-		contindex++;
-	}
+	
 }
 
 void inputhandler::decryption159()
 {
-	int temp_char;
-	
-	//reverse encrypter
-	for (int i = 0; i < input_size; i++)
+	use.clear();
+
+	int keyL, l126, l33, offL, rem32L;
+
+	keyL = newkey[0];
+	newkey[0] = 'Q';
+	l126 = newkey[1];
+	newkey[1] = 'Q';
+	offL = newkey[2];
+	newkey[2] = 'Q';
+	l33 = newkey[3];
+	newkey[3] = 'Q';
+	rem32L = newkey[4];
+	newkey[4] = 'Q';
+
+	for (int i = 0; i < keyL; i++)
 	{
-		bool origin_found = false;
-
-		temp_char = (int)entxt[i];
-
-		while ((temp_char < 126 || temp_char > 33) && origin_found == false)
+		if (newkey[i] == 'Q')
 		{
-			if (temp_char > 33)
-			{
-				for(;thirty_c[i];)
-				{
-					temp_char -= 33;
-				}
-			}
-			else if (temp_char < 126)
-			{
-				for (;onetwenty_c[i];)
-				{
-					temp_char += 126;
-				}
-			}
-			origin_found = true;
+			i++;
 		}
-		
-		temp_char = (int)entxt[i] - offsets[i];
-		entxt[i] = temp_char;
-	}
-
-	if (keyholder_de[4] != 0)
-	{
-		for (int i = 0; i < keyholder_de[4]; i++)
+		else
 		{
-			int temp_i = keyholder_de[4];
-			i = remember32[i];
-			char temp_char = entxt[i];
-			char temp_nchar = entxt[i + 1];
-			entxt[i] = 32;
-
-			bool t_c = false;
-			bool t_nc = false;
-
-			for (int ia = i; ia < input_size; ia++)
-			{
-				if (t_c == false)
-				{
-					entxt[ia] = temp_char;
-					temp_char = entxt[ia + 1];
-					t_c = true;
-				}
-				else if (t_nc == false)
-				{
-					entxt[ia] = temp_nchar;
-					temp_nchar = entxt[ia + 1];
-					t_nc = true;
-				}
-
-			}
-
-			i = temp_i;
+			keyholder_de[i] = newkey[i];
 		}
 	}
-	
+
+	for (int i = 5, ia = 0; ia < rem32L; i++, ia++)
+	{
+		remember32[ia] = keyholder_de[i];
+	}
+	for (int i = 5, ia = 0; i < l126; i++, ia++)
+	{
+		onetwenty_c[ia] = keyholder_de[i];
+	}
+	for (int i = 5, ia = 0; i < offL; i++, ia++)
+	{
+		offsets[ia] = keyholder_de[i];
+	}
+	for (int i = 5, ia = 0; i < l33; i++,ia++)
+	{
+		thirty_c[ia] = keyholder_de[i];
+	}
+
+	for (int i = 0; i < ; i++)
+	{
+		temp_key = (int)newkey[i] - offsets[i];
+
+
+		while (temp_key > 126 || temp_key < 33)
+		{
+			if (temp_key > 126)
+			{
+				temp_key += 126;
+			}
+			else if (temp_key < 33)
+			{
+				temp_key -= 33;
+			}
+		}
+
+		newkey[i] = temp_key;
+	}
 }
 
 void inputhandler::set_offsets(int offsetproxy, int i)
@@ -240,25 +208,19 @@ void inputhandler::set_keyholder(int keyinput, int i)
 	use.rKey++;
 }
 
-void inputhandler::set_entxt(std::string & txtinput, int i)
-{
-	entxt[i] = txtinput[i];
-	input_size++;
-}
-
 void inputhandler::set_brokeninput(std::string & txtinput, int i)
 {
 	brokeninput[i] = txtinput[i];
 }
 
-void inputhandler::set_keyholder_de(int keyproxy,int i)
+void inputhandler::set_newkey(int keyproxy,int i)
 {
-	keyholder_de[i] = keyproxy;
+	newkey[i] = keyproxy;
 }
 
-int inputhandler::get_input_size() const
+int inputhandler::get_inputsL() const
 {
-	return input_size;
+	return inputsL;
 }
 
 char inputhandler::get_brokeninput(int i) const
@@ -269,14 +231,4 @@ char inputhandler::get_brokeninput(int i) const
 int inputhandler::get_key(int i) const
 {
 	return keyholder159[i];
-}
-
-char inputhandler::get_entxt(int i) const
-{
-	return entxt[i];
-}
-
-int inputhandler::get_key_size() const
-{
-	return key_size;
 }
