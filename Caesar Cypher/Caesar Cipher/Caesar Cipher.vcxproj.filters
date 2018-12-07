@@ -24,9 +24,6 @@
     <ClInclude Include="CounterStruct.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shenanigans.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
