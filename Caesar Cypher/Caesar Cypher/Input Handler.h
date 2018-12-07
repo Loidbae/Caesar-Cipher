@@ -29,40 +29,44 @@ public:
 		 use.rindex = 0;
 	}
 
-	void clearArrays();
+	void dispose_leftovers();
 
-	void prepare_brokeninput(std::string& userinput, std::string& keyinput, bool decrypting);
+	void prepare_encryption(std::string& userinput);
+	void prepare_decryption();
 	void encrypter159();
 	void keygen159();
 	void decryption159();
 
 	void set_offsets(int offsetproxy,int i);
 	void set_keyholder(int keyinput,int i);
+	void set_entxt(std::string& txtinput, int i);
 	void set_brokeninput(std::string& txtinput,int i);
-	void set_newkey(int keyproxy,int i);
+	void set_keyholder_de(int keyproxy,int i);
 
-	int get_inputsL()const;
+	int get_input_size()const;
 	char get_brokeninput(int i)const;
 	int get_key(int i)const;
-
-	int keysize;
+	char get_entxt(int i)const;
+	int get_key_size()const;
+	
 
 private:
 	counterstruct use;
 
 	int rem_i = 0;
-	int inputsL;
+	int input_size;
+	int key_size;
 
 	static constexpr int dex = 299;
 
-	char newkey[dex];
+	char entxt[dex];
 	int keyholder_de[dex];
 
 	char brokeninput[dex];
-	int remember32[dex]; // 32 -> ascii decimal for whitespace
+	int remember32[dex];
 	int offsets[dex];
-	int onetwenty_c[dex]; // 120 was as text shorter than 126 
-	int thirty_c[dex]; // same as above ^ but with 33
+	int onetwenty_c[dex];
+	int thirty_c[dex]; 
 	int keyholder159[dex];
 
 };
@@ -70,39 +74,11 @@ private:
 	Rough concept of my cipher:
 		
 		- user inputs text
-		- text gets broken up into chars and passed on to the char array
+		- text gets broken up into chars and passed onto the char array (brokeninput)
 		- each and every character gets set off by the user
 		- then, every offset will get added onto the decimals of each character from the put in text respectively
 		
 		- to generate a key we want to count every 126 subtraction and every 33 addition for each character
 		- with those subtraction and addition counters and the offsets we then want to generate a key with a pattern which is instantly recognisable for the decrypter
-		-
 
-*/
-
-// ---VVV THIS IS LEFTOVER DOCUMENTATION VVV---
-
-/*so it turns out that if you convert a character to an integer, it will actually convert to
-the ascii table decimal number of that character. Yes this is pretty basic stuff and common
-knowlage, but a step is a step.*/
-
-/*So that means my encoder should look something like this:
-new int array -then-> get [values of brokenstring array] which means very character will get
-translated !@#? --> into their decimal assigned by the ascii table respectively.
-
-After that we want to change each and every character by an offset put in by the user
-so my idea would be to add the current character decimals and offsets together to get a new
-decimal which then needs to be corrected to fit in the "useful" chracter range of the table.
-
-To give you an example what I am talking about:
-
-			char ex = 'a'
-			// a is 97
-			int offset = 1;
-			int new_char;
-
-			new_char=offset+(int)ex;
-
-			cout << new_char;
-			output would be 'b' because 97 + 1 = 98 = 'b' in the table
 */
