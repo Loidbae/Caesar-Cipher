@@ -35,7 +35,7 @@
     <ClCompile Include="Input Handler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Caesar Cipher.cpp">
+    <ClCompile Include="Caesar Cypher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

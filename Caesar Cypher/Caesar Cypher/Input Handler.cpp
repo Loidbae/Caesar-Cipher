@@ -196,32 +196,37 @@ void inputhandler::decryption159()
 	{
 		for (int i = 0; i < keyholder_de[4]; i++)
 		{
-			int temp_i = keyholder_de[4];
+			int temp_i = i;
 			i = remember32[i];
 			char temp_char = entxt[i];
-			char temp_nchar = entxt[i + 1];
+			char temp_nchar = (int)entxt[i + 1];
 			entxt[i] = 32;
 
+			
+
+			i++;
 			bool t_c = false;
 			bool t_nc = false;
 
-			for (int ia = i; ia < input_size; ia++)
+			for (i; i < input_size; i++)
 			{
+				
+
 				if (t_c == false)
 				{
-					entxt[ia] = temp_char;
-					temp_char = entxt[ia + 1];
+					entxt[i] = temp_char;
+					temp_char = (int)entxt[i + 1];
 					t_c = true;
 				}
 				else if (t_nc == false)
 				{
-					entxt[ia] = temp_nchar;
-					temp_nchar = entxt[ia + 1];
+					entxt[i] = temp_nchar;
+					temp_nchar = (int)entxt[i + 1];
 					t_nc = true;
 				}
 
 			}
-
+			
 			i = temp_i;
 		}
 	}
