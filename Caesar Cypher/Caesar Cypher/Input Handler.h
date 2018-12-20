@@ -49,6 +49,9 @@ public:
 	char get_entxt(int i)const;
 	int get_key_size()const;
 	
+	void algo_sort(int array_a[],int array_a_length,int array_b[]);
+	void algo_sort(int array_a[], int array_a_length, char array_b[]);
+	
 
 private:
 	counterstruct use;

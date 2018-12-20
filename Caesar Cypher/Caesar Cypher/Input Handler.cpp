@@ -161,7 +161,6 @@ void inputhandler::keygen159()
 void inputhandler::decryption159()
 {
 	int temp_char;
-	
 	//reverse encrypter
 	for (int i = 0; i < input_size; i++)
 	{
@@ -189,47 +188,11 @@ void inputhandler::decryption159()
 		}
 		
 		temp_char = (int)entxt[i] - offsets[i];
+
 		entxt[i] = temp_char;
 	}
 
-	if (keyholder_de[4] != 0)
-	{
-		for (int i = 0; i < keyholder_de[4]; i++)
-		{
-			int temp_i = i;
-			i = remember32[i];
-			char temp_char = entxt[i];
-			char temp_nchar = (int)entxt[i + 1];
-			entxt[i] = 32;
-
-			
-
-			i++;
-			bool t_c = false;
-			bool t_nc = false;
-
-			for (i; i < input_size; i++)
-			{
-				
-
-				if (t_c == false)
-				{
-					entxt[i] = temp_char;
-					temp_char = (int)entxt[i + 1];
-					t_c = true;
-				}
-				else if (t_nc == false)
-				{
-					entxt[i] = temp_nchar;
-					temp_nchar = (int)entxt[i + 1];
-					t_nc = true;
-				}
-
-			}
-			
-			i = temp_i;
-		}
-	}
+	
 	
 }
 
@@ -284,4 +247,25 @@ char inputhandler::get_entxt(int i) const
 int inputhandler::get_key_size() const
 {
 	return key_size;
+}
+
+void inputhandler::algo_sort(int array_a[], int array_a_length, int array_b[])
+{
+	if (array_a_length != 0)
+	{
+		for (int i = 0; i < array_a_length; i++)
+		{
+			int temp_i = i;
+			i = array_a[i];
+			auto temp_char = array_b[i];
+			char temp_nchar = (int)array_b[i + 1];
+			array_b[i] = 32;
+
+			//WIP
+
+			
+
+		}
+	}
+
 }
